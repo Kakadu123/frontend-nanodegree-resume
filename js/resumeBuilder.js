@@ -1,6 +1,6 @@
 bio = {
 	
-	"name" : "Samuel",
+	"name" : "Samuel Gaspar",
 	"role" : "web developer",
 	"contacts" : {
 		"mobile": "0907 939 857",

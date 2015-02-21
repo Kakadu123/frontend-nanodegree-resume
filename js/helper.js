@@ -69,6 +69,18 @@ $(document).ready(function() {
   });
 });
 
+function inName(pName) {
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Samuel's comment, I am not sure if modification of lines 65 to 70 is allowed, therefore I placed input value for internalization here
+	// var name_local = $("#name").text().trim();
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	var name_local = $("#name").text().trim();
+	name_local = name_local.trim().split(" ");
+	name_local[1] = name_local[1].toUpperCase(); 
+	name_local[0]	= name_local[0].slice(0,1).toUpperCase() + name_local[0].slice(1).toLowerCase();
+	return name_local[0] + " " + name_local[1];
+}
+
 /*
 The next few lines about clicks are for the Collecting Click Locations quiz in Lesson 2.
 */
