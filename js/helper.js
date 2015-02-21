@@ -64,7 +64,7 @@ The International Name challenge in Lesson 2 where you'll create a function that
 */
 $(document).ready(function() {
   $('button').click(function() {
-    var iName = inName() || function(){};
+    var iName = inName(name) || function(){};
     $('#name').html(iName);  
   });
 });
@@ -85,10 +85,8 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+  logClicks(loc.pageX, loc.pageY);
 });
-
-
 
 /*
 This is the fun part. Here's where we generate the custom Google Map for the website.
@@ -149,10 +147,23 @@ function initializeMap() {
   function createMapMarker(placeData) {
 
     // The next lines save location data from the search result object to local variables
-    var lat = placeData.geometry.location.lat();  // latitude from the place service
-    var lon = placeData.geometry.location.lng();  // longitude from the place service
+    var lat = placeData.geometry.location.k;  // latitude from the place service
+    var lon = placeData.geometry.location.D;  // longitude from the place service
     var name = placeData.formatted_address;   // name of the place from the place service
     var bounds = window.mapBounds;            // current boundaries of the map window
+ 
+    //////////////////////////////////////////
+ 	// added custom heading based on location
+ 	////////////////////////////////////////// 
+    if (name == 'Tring, Tring, Hertfordshire HP23, UK') {
+    	var description = "My summer job location";		
+    }
+    else if (name == 'Bratislava, Slovakia') {
+    	var description = "My current location";		 	
+    }
+    else  {
+    	var description = "My beloved hometown";		 	
+    }
 
     // marker is an object with additional data about the pin for a single location
     var marker = new google.maps.Marker({
@@ -165,12 +176,12 @@ function initializeMap() {
     // or hover over a pin on a map. They usually contain more information
     // about a location.
     var infoWindow = new google.maps.InfoWindow({
-      content: name
+      content: "<h4>" + description + ":</h4>Name: " + name + "<BR>Longitude: " + (Math.round(lon * 100) / 100 ) + "<BR>Latitude: " + (Math.round(lat * 100) / 100 ) 
     });
 
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
-      // your code goes here!
+		infoWindow.open(map, marker);
     });
 
     // this is where the pin actually gets added to the map.
@@ -233,11 +244,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
-  // Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+window.addEventListener('resize', function(e) {
+  //  Make sure the map bounds get updated on page resize
+    map.fitBounds(mapBounds);
+});
